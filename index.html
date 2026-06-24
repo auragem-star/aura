@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA — مستشارك الشخصي بالـ AI</title>
+  <meta name="description" content="AURA يحلل صوتك ويبني خطة يومك الكاملة بالذكاء الاصطناعي" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== AUTH SCREEN (LOGIN / SIGNUP) ========== -->
+  <section id="authScreen" class="screen active">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <div class="auth-container">
+      <div class="auth-header">
+        <span class="auth-logo-icon">◈</span>
+        <h1 class="auth-logo-text">AURA</h1>
+        <p class="auth-subtitle">مستشارك النفسي واليومي بالذكاء الاصطناعي</p>
+      </div>
+
+      <!-- Auth Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLoginBtn">تسجيل الدخول</button>
+        <button class="auth-tab" id="tabSignupBtn">إنشاء حساب</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form" onsubmit="return false;">
+        <div class="auth-form-group">
+          <label class="auth-label">البريد الإلكتروني</label>
+          <input type="email" id="loginEmail" class="auth-input" placeholder="name@example.com" required style="direction:ltr; text-align:left;" />
+        </div>
+        <div class="auth-form-group">
+          <label class="auth-label">كلمة المرور</label>
+          <input type="password" id="loginPassword" class="auth-input" placeholder="••••••••" required style="direction:ltr; text-align:left;" />
+        </div>
+        <button type="button" class="btn-primary auth-submit-btn" id="submitLoginBtn">
+          <span>دخول</span>
+          <span class="btn-arrow">←</span>
+        </button>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" class="auth-form hidden" onsubmit="return false;">
+        <div class="auth-form-group">
+          <label class="auth-label">الاسم الأول</label>
+          <input type="text" id="signupName" class="auth-input" placeholder="أحمد" required />
+        </div>
+        <div class="auth-form-group">
+          <label class="auth-label">العمر (اختياري)</label>
+          <input type="number" id="signupAge" class="auth-input" placeholder="25" min="10" max="120" />
+        </div>
+        <div class="auth-form-group">
+          <label class="auth-label">البريد الإلكتروني</label>
+          <input type="email" id="signupEmail" class="auth-input" placeholder="name@example.com" required style="direction:ltr; text-align:left;" />
+        </div>
+        <div class="auth-form-group">
+          <label class="auth-label">كلمة المرور</label>
+          <input type="password" id="signupPassword" class="auth-input" placeholder="••••••••" required style="direction:ltr; text-align:left;" />
+        </div>
+        <button type="button" class="btn-primary auth-submit-btn" id="submitSignupBtn">
+          <span>إنشاء الحساب</span>
+          <span class="btn-arrow">←</span>
+        </button>
+      </form>
+
+      <!-- Local Fallback Hint -->
+      <div class="fallback-badge" id="fallbackBadge">
+        🔄 وضع التشغيل: محلي (Offline)
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LANDING PAGE ========== -->
+  <section id="landing" class="screen has-nav">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AURA</span>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-nav" id="openProfile">👤 بروفايل</button>
+        <button class="btn-nav" id="openSettings">⚙️ الإعدادات</button>
+      </div>
+    </nav>
+
+    <div class="landing-content">
+      <div class="badge">✨ مدعوم بالذكاء الاصطناعي</div>
+      <h1 class="hero-title">
+        اعرف نفسك<br />
+        <span class="gradient-text">كل يوم من صوتك</span>
+      </h1>
+      <p class="hero-desc">
+        احكي لمدة دقيقة — وAURA هيحلل كلامك ومشاعرك<br />
+        ويبني ليك خطة يومك الكاملة بالذكاء الاصطناعي
+      </p>
+
+      <div class="features-row">
+        <div class="feat-card">
+          <span class="feat-icon">🎙️</span>
+          <span>تحليل الصوت</span>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">🧠</span>
+          <span>ذكاء اصطناعي</span>
+        </div>
+        <div class="feat-card">
+          <span class="feat-icon">📅</span>
+          <span>خطة يومية</span>
+        </div>
+      </div>
+
+      <button class="btn-primary pulse" id="startBtn">
+        <span>ابدأ تحليل يومك</span>
+        <span class="btn-arrow">←</span>
+      </button>
+
+    </div>
+
+    <div class="floating-stats">
+      <div class="stat">
+        <span class="stat-num">98%</span>
+        <span class="stat-label">دقة التحليل</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">2 دقيقة</span>
+        <span class="stat-label">وقت التحليل</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">AI</span>
+        <span class="stat-label">AI محرك</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SETTINGS MODAL ========== -->
+  <div id="settingsModal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>⚙️ الإعدادات</h3>
+        <button class="modal-close" id="closeSettings">✕</button>
+      </div>
+      <div class="modal-body" style="display:flex; flex-direction:column; gap:12px;">
+        <div>
+          <label class="input-label">🔑 OpenRouter API Key</label>
+          <div class="input-group">
+            <input type="password" id="apiKeyInput" placeholder="sk-or-..." class="api-input" />
+            <button class="btn-show" id="toggleKey">👁️</button>
+          </div>
+          <p class="input-hint" style="margin-top: 4px; font-size: 11px; color: var(--text-muted); text-align: right; direction: rtl;">
+            💡 سيبه فاضي وهيشتغل تلقائياً بمحرك مجاني تماماً وبدون حدود (Pollinations AI).
+          </p>
+        </div>
+
+        <div>
+          <label class="input-label">🌐 Supabase URL</label>
+          <input type="text" id="supabaseUrlInput" placeholder="https://xxxx.supabase.co" class="api-input" style="direction:ltr; text-align:left;" />
+        </div>
+
+        <div>
+          <label class="input-label">🔑 Supabase Anon Key</label>
+          <input type="password" id="supabaseKeyInput" placeholder="eyJhbGciOi..." class="api-input" style="direction:ltr; text-align:left;" />
+        </div>
+
+        <p class="input-hint">كل البيانات تُحفظ في متصفحك بشكل آمن 🔒</p>
+        <button class="btn-save" id="saveKey" style="margin-top:8px;">💾 حفظ الإعدادات</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== RECORDING SCREEN ========== -->
+  <section id="recordingScreen" class="screen">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+
+    <div class="screen-header">
+      <button class="btn-back" id="backToLanding">← رجوع</button>
+      <div class="logo small">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AURA</span>
+      </div>
+    </div>
+
+    <div class="record-container">
+      <div class="record-top">
+        <h2 class="record-title">احكي لمدة دقيقة 🎙️</h2>
+        <p class="record-subtitle">
+          احكي عن يومك، مشاعرك، أي حاجة بتقلقك<br />
+          كأنك بتتكلم مع صديق أو دكتور نفسي — كل كلمة بتفيد!
+        </p>
+      </div>
+
+
+      <!-- Visualizer -->
+      <div class="visualizer-wrapper">
+        <div class="pulse-ring ring-1"></div>
+        <div class="pulse-ring ring-2"></div>
+        <div class="pulse-ring ring-3"></div>
+        <button class="mic-btn" id="micBtn">
+          <span class="mic-icon">🎙️</span>
+        </button>
+      </div>
+
+      <!-- Waveform -->
+      <div class="waveform" id="waveform">
+        <div class="wave-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="timer-display" id="timerDisplay">00:00</div>
+      <div class="live-transcript" id="liveTranscript" style="max-height: 80px; overflow-y: auto; margin: 8px 16px; padding: 10px 14px; background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.15); border-radius: 12px; font-size: 13px; color: rgba(241,241,245,0.6); font-family: Cairo, sans-serif; direction: rtl; text-align: right; display: none; line-height: 1.6;"></div>
+
+      <div class="record-status" id="recordStatus">
+        <span class="status-dot idle"></span>
+        <span id="statusText">اضغط للتسجيل</span>
+      </div>
+
+      <div class="record-actions">
+        <button class="btn-record" id="recordBtn">
+          <span id="recordBtnIcon">⏺</span>
+          <span id="recordBtnText">ابدأ التسجيل</span>
+        </button>
+        <button class="btn-analyze hidden" id="analyzeBtn">
+          <span>🧠</span>
+          <span>حلل كلامي</span>
+        </button>
+      </div>
+
+      <!-- Text Fallback Input -->
+      <div class="text-fallback" id="textFallback" style="display: none; margin: 12px 16px;">
+        <p style="font-size: 13px; color: rgba(241,241,245,0.5); margin-bottom: 8px; font-family: Cairo, sans-serif; text-align: center;">
+          ✍️ أو اكتب اللي حاسس بيه هنا:
+        </p>
+        <textarea id="textInput" placeholder="اكتب عن يومك، مشاعرك، أي حاجة بتقلقك..." style="
+          width: 100%;
+          min-height: 80px;
+          background: rgba(124,58,237,0.08);
+          border: 1px solid rgba(124,58,237,0.2);
+          border-radius: 14px;
+          padding: 12px 14px;
+          color: #f1f1f5;
+          font-size: 14px;
+          font-family: Cairo, sans-serif;
+          direction: rtl;
+          text-align: right;
+          resize: none;
+          outline: none;
+          box-sizing: border-box;
+          line-height: 1.7;
+          transition: border 0.3s;
+        "></textarea>
+        <button id="analyzeTextBtn" style="
+          width: 100%;
+          margin-top: 8px;
+          background: linear-gradient(135deg, #7c3aed, #4f46e5);
+          color: white;
+          border: none;
+          padding: 13px;
+          border-radius: 50px;
+          font-size: 15px;
+          font-weight: 700;
+          font-family: Cairo, sans-serif;
+          cursor: pointer;
+          box-shadow: 0 6px 20px rgba(124,58,237,0.3);
+        ">🧠 حلل كلامي</button>
+      </div>
+
+      <div class="tips-box">
+        <p>💡 <strong>تلميح:</strong> احكي عن مشاعرك، أهدافك، أي ضغط أو قلق عندك — كأنك بتتكلم مع دكتور نفسي بيسمعك ويساعدك</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LOADING SCREEN ========== -->
+  <section id="loadingScreen" class="screen">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="loading-content">
+      <div class="ai-brain">
+        <div class="brain-pulse">
+          <span class="brain-icon">🧠</span>
+        </div>
+        <div class="brain-rings">
+          <div class="brain-ring"></div>
+          <div class="brain-ring"></div>
+          <div class="brain-ring"></div>
+        </div>
+      </div>
+      <h2 class="loading-title">AURA بيحلل صوتك...</h2>
+      <div class="loading-steps">
+        <div class="load-step active" id="step1">
+          <span class="step-dot"></span>
+          <span>تحليل نبرة الصوت</span>
+        </div>
+        <div class="load-step" id="step2">
+          <span class="step-dot"></span>
+          <span>قراءة مستوى الطاقة</span>
+        </div>
+        <div class="load-step" id="step3">
+          <span class="step-dot"></span>
+          <span>بناء خطة يومك</span>
+        </div>
+      </div>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RESULTS SCREEN ========== -->
+  <section id="resultsScreen" class="screen has-nav">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+
+    <div class="results-header">
+      <div class="logo small">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AURA</span>
+      </div>
+      <div class="date-badge" id="dateBadge"></div>
+    </div>
+
+    <div class="results-container" id="resultsContainer">
+      <!-- Dynamic content injected here -->
+    </div>
+
+    <div class="results-actions">
+      <button class="btn-secondary" id="newAnalysisBtn">🔄 تحليل جديد</button>
+      <button class="btn-secondary" id="goProfileBtn">👤 بروفايلك</button>
+      <button class="btn-primary" id="shareBtn">📤 شارك خطتك</button>
+    </div>
+  </section>
+
+  <!-- ========== PROFILE SETUP MODAL ========== -->
+  <div id="profileModal" class="modal-overlay hidden">
+    <div class="modal-box profile-modal-box">
+      <div class="modal-header">
+        <h3>👤 بروفايلك الشخصي</h3>
+        <button class="modal-close" id="closeProfile">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Avatar Picker -->
+        <div class="avatar-section">
+          <div class="avatar-display" id="avatarDisplay">😊</div>
+          <p class="input-label" style="text-align:center; margin-top:10px;">اختار أفاتار</p>
+          <div class="avatar-grid" id="avatarGrid">
+            <span class="av-item" data-av="😊">😊</span>
+            <span class="av-item" data-av="😎">😎</span>
+            <span class="av-item" data-av="🧑‍💻">🧑‍💻</span>
+            <span class="av-item" data-av="🦁">🦁</span>
+            <span class="av-item" data-av="🐺">🐺</span>
+            <span class="av-item" data-av="🦅">🦅</span>
+            <span class="av-item" data-av="⚡">⚡</span>
+            <span class="av-item" data-av="🔥">🔥</span>
+            <span class="av-item" data-av="🌟">🌟</span>
+            <span class="av-item" data-av="💎">💎</span>
+            <span class="av-item" data-av="🚀">🚀</span>
+            <span class="av-item" data-av="🧠">🧠</span>
+          </div>
+        </div>
+
+        <!-- Name -->
+        <label class="input-label">✏️ اسمك</label>
+        <input type="text" id="profileName" placeholder="اكتب اسمك هنا..." class="api-input profile-input" />
+
+        <!-- Age -->
+        <label class="input-label" style="margin-top:16px;">🎂 عمرك</label>
+        <input type="number" id="profileAge" placeholder="مثلاً: 28" class="api-input profile-input" min="10" max="100" />
+
+        <!-- Goals -->
+        <label class="input-label" style="margin-top:16px;">🎯 أهدافك الشخصية (اختار كل اللي ينطبق عليك)</label>
+        <div class="goals-grid" id="goalsGrid">
+          <div class="goal-item" data-goal="إنتاجية أعلى">⚡ إنتاجية أعلى</div>
+          <div class="goal-item" data-goal="صحة أفضل">💪 صحة أفضل</div>
+          <div class="goal-item" data-goal="تقليل التوتر">😌 تقليل التوتر</div>
+          <div class="goal-item" data-goal="نوم أفضل">🌙 نوم أفضل</div>
+          <div class="goal-item" data-goal="تطوير مهارات">📚 تطوير مهارات</div>
+          <div class="goal-item" data-goal="تحقيق أهداف مالية">💰 أهداف مالية</div>
+          <div class="goal-item" data-goal="علاقات أفضل">❤️ علاقات أفضل</div>
+          <div class="goal-item" data-goal="تحقيق التوازن">⚖️ توازن الحياة</div>
+        </div>
+
+        <!-- Wakeup Time -->
+        <label class="input-label" style="margin-top:16px;">⏰ بتصحى إمتى عادةً؟</label>
+        <div class="time-options" id="wakeupOptions">
+          <div class="time-opt" data-time="قبل 6 صباحاً">🌅 قبل 6 ص</div>
+          <div class="time-opt" data-time="6-8 صباحاً">☀️ 6-8 ص</div>
+          <div class="time-opt" data-time="8-10 صباحاً">🌤️ 8-10 ص</div>
+          <div class="time-opt" data-time="بعد 10 صباحاً">🌞 بعد 10 ص</div>
+        </div>
+
+        <button class="btn-save" id="saveProfile" style="margin-top:24px;">✨ حفظ البروفايل</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PROFILE VIEW SCREEN ========== -->
+  <section id="profileScreen" class="screen has-nav">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+
+    <div class="screen-header">
+      <button class="btn-back" id="backFromProfile">← رجوع</button>
+      <div class="logo small">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AURA</span>
+      </div>
+    </div>
+
+    <div class="profile-view-container" id="profileViewContainer">
+      <!-- Dynamic profile content -->
+    </div>
+  </section>
+  <!-- ========== HISTORY SCREEN ========== -->
+  <section id="historyScreen" class="screen has-nav">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+    <div class="subscreen-header">
+      <h2 class="subscreen-title">📅 سجل الأيام</h2>
+      <div class="header-badge" id="historyCount">0 جلسة</div>
+    </div>
+    <div class="subscreen-content" id="historyContainer">
+      <!-- Dynamic history content -->
+    </div>
+  </section>
+
+  <!-- ========== DASHBOARD SCREEN ========== -->
+  <section id="dashboardScreen" class="screen has-nav">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="subscreen-header">
+      <h2 class="subscreen-title">📈 الداشبورد</h2>
+      <div class="header-badge" id="dashWeekLabel">آخر 7 أيام</div>
+    </div>
+    <div class="subscreen-content" id="dashboardContainer">
+      <!-- Dynamic dashboard content -->
+    </div>
+  </section>
+
+  <!-- ========== BOTTOM NAV ========== -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="bnav-item active" data-screen="landing" id="bnav-home">
+      <span class="bnav-icon">🏠</span>
+      <span class="bnav-label">الرئيسية</span>
+    </button>
+    <button class="bnav-item" data-screen="historyScreen" id="bnav-history">
+      <span class="bnav-icon">📅</span>
+      <span class="bnav-label">السجل</span>
+    </button>
+    <button class="bnav-item bnav-center" id="bnav-record" data-screen="recordingScreen">
+      <span class="bnav-icon">🎙️</span>
+      <span class="bnav-label">سجّل</span>
+    </button>
+    <button class="bnav-item" data-screen="dashboardScreen" id="bnav-dash">
+      <span class="bnav-icon">📈</span>
+      <span class="bnav-label">داشبورد</span>
+    </button>
+    <button class="bnav-item" data-screen="profileScreen" id="bnav-profile">
+      <span class="bnav-icon">👤</span>
+      <span class="bnav-label">بروفايل</span>
+    </button>
+  </nav>
+  <!-- ========== PREMIUM SCREEN ========== -->
+  <section id="premiumScreen" class="screen">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <div class="premium-header">
+      <button class="btn-back" id="backFromPremium">← رجوع</button>
+      <div class="logo small">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AURA</span>
+      </div>
+    </div>
+
+    <div class="premium-content">
+      <!-- Crown Badge -->
+      <div class="premium-crown">👑</div>
+      <h1 class="premium-title">AURA <span class="gradient-text">Premium</span></h1>
+      <p class="premium-sub">افتح كل الإمكانيات وحوّل حياتك اليومية</p>
+
+      <!-- Plans -->
+      <div class="plans-container">
+        <!-- Monthly -->
+        <div class="plan-card" id="planMonthly" data-plan="monthly" data-price="49">
+          <div class="plan-label">شهري</div>
+          <div class="plan-price"><span class="plan-amount">49</span><span class="plan-currency">جنيه</span></div>
+          <div class="plan-period">/ شهر</div>
+        </div>
+
+        <!-- Annual (recommended) -->
+        <div class="plan-card recommended active" id="planAnnual" data-plan="annual" data-price="399">
+          <div class="plan-badge">⭐ الأوفر</div>
+          <div class="plan-label">سنوي</div>
+          <div class="plan-price"><span class="plan-amount">399</span><span class="plan-currency">جنيه</span></div>
+          <div class="plan-period">/ سنة • وفّر 33%</div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="premium-features">
+        <div class="pf-item"><span class="pf-check">✓</span><span>تحليلات غير محدودة يومياً بدل 3 مرات فقط 🎙️♾️</span></div>
+        <div class="pf-item"><span class="pf-check">✓</span><span>سجل كامل لكل أيامك بلا حدود</span></div>
+        <div class="pf-item"><span class="pf-check">✓</span><span>داشبورد متقدم مع تحليلات عميقة</span></div>
+        <div class="pf-item"><span class="pf-check">✓</span><span>نصائح AI مخصصة أسبوعية</span></div>
+        <div class="pf-item"><span class="pf-check">✓</span><span>تحليل مساء + تقييم يومك</span></div>
+        <div class="pf-item"><span class="pf-check">✓</span><span>دعم أولوية 24/7</span></div>
+      </div>
+
+      <button class="btn-primary premium-cta" id="goToPayment">
+        <span>اشترك الآن</span>
+        <span class="btn-arrow">←</span>
+      </button>
+
+      <p class="premium-trial">🎁 جرّب 7 أيام مجاناً — بدون أي التزام</p>
+    </div>
+  </section>
+
+  <!-- ========== PAYMENT METHOD SCREEN ========== -->
+  <section id="paymentMethodScreen" class="screen">
+    <div class="bg-orbs">
+      <div class="orb orb-2"></div>
+      <div class="orb orb-1"></div>
+    </div>
+    <div class="payment-header">
+      <button class="btn-back" id="backFromPayMethod">← رجوع</button>
+      <h2 class="payment-title">اختار طريقة الدفع</h2>
+    </div>
+    <div class="payment-body">
+      <div class="selected-plan-badge" id="selectedPlanBadge">الخطة السنوية — 399 جنيه</div>
+
+      <div class="pay-methods">
+        <!-- Visa/Card -->
+        <button class="pay-method-card" id="payVisa" data-method="visa">
+          <div class="pay-method-icon">💳</div>
+          <div class="pay-method-info">
+            <div class="pay-method-name">كارت فيزا / ماستركارد</div>
+            <div class="pay-method-sub">Visa • Mastercard • Meeza</div>
+          </div>
+          <span class="pay-method-arrow">←</span>
+        </button>
+
+        <!-- InstaPay -->
+        <button class="pay-method-card" id="payInstapay" data-method="instapay">
+          <div class="pay-method-icon">📲</div>
+          <div class="pay-method-info">
+            <div class="pay-method-name">InstaPay</div>
+            <div class="pay-method-sub">تحويل فوري عبر التطبيق</div>
+          </div>
+          <span class="pay-method-arrow">←</span>
+        </button>
+
+        <!-- E-Wallet -->
+        <button class="pay-method-card" id="payWallet" data-method="wallet">
+          <div class="pay-method-icon">📱</div>
+          <div class="pay-method-info">
+            <div class="pay-method-name">محفظة إلكترونية</div>
+            <div class="pay-method-sub">Vodafone Cash • Orange Money • Etisalat</div>
+          </div>
+          <span class="pay-method-arrow">←</span>
+        </button>
+      </div>
+
+      <div class="security-note">
+        🔒 جميع بياناتك مشفرة وآمنة تماماً
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VISA PAYMENT SCREEN ========== -->
+  <section id="visaScreen" class="screen">
+    <div class="bg-orbs"><div class="orb orb-2"></div></div>
+    <div class="payment-header">
+      <button class="btn-back" id="backFromVisa">← رجوع</button>
+      <h2 class="payment-title">💳 بيانات الكارت</h2>
+    </div>
+    <div class="payment-body">
+      <div class="selected-plan-badge" id="visaPlanBadge">399 جنيه / سنة</div>
+
+      <div class="card-preview" id="cardPreview">
+        <div class="card-chip">▣</div>
+        <div class="card-number-preview" id="cardNumPreview">•••• •••• •••• ••••</div>
+        <div class="card-bottom-row">
+          <div>
+            <div class="card-field-label">اسم الحامل</div>
+            <div class="card-holder-preview" id="cardHolderPreview">FULL NAME</div>
+          </div>
+          <div>
+            <div class="card-field-label">تاريخ الانتهاء</div>
+            <div class="card-expiry-preview" id="cardExpiryPreview">MM/YY</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="card-form" id="cardForm" onsubmit="return false;">
+        <div class="card-form-group">
+          <label class="card-label">رقم الكارت</label>
+          <input type="text" id="cardNumber" class="card-input" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" />
+        </div>
+        <div class="card-form-group">
+          <label class="card-label">الاسم على الكارت</label>
+          <input type="text" id="cardHolder" class="card-input" placeholder="Ahmed Mohamed" style="direction:ltr;" />
+        </div>
+        <div class="card-form-row">
+          <div class="card-form-group">
+            <label class="card-label">تاريخ الانتهاء</label>
+            <input type="text" id="cardExpiry" class="card-input" placeholder="MM/YY" maxlength="5" inputmode="numeric" />
+          </div>
+          <div class="card-form-group">
+            <label class="card-label">CVV</label>
+            <input type="password" id="cardCvv" class="card-input" placeholder="•••" maxlength="4" inputmode="numeric" />
+          </div>
+        </div>
+        <button type="button" class="btn-primary" id="submitVisa" style="width:100%; margin-top:8px; justify-content:center;">
+          <span id="visaBtnText">ادفع الآن</span>
+        </button>
+      </form>
+
+      <div class="card-brands">
+        <span>💳 Visa</span>
+        <span>💳 Mastercard</span>
+        <span>🏦 Meeza</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INSTAPAY SCREEN ========== -->
+  <section id="instapayScreen" class="screen">
+    <div class="bg-orbs"><div class="orb orb-1"></div></div>
+    <div class="payment-header">
+      <button class="btn-back" id="backFromInstapay">← رجوع</button>
+      <h2 class="payment-title">📲 InstaPay</h2>
+    </div>
+    <div class="payment-body">
+      <div class="selected-plan-badge" id="instapayPlanBadge">399 جنيه / سنة</div>
+
+      <div class="instapay-box">
+        <div class="instapay-steps">
+          <div class="ip-step">
+            <div class="ip-step-num">1</div>
+            <div class="ip-step-text">افتح تطبيق InstaPay أو بنكك</div>
+          </div>
+          <div class="ip-step">
+            <div class="ip-step-num">2</div>
+            <div class="ip-step-text">اختار "تحويل" وادفع للرقم ده</div>
+          </div>
+          <div class="ip-step">
+            <div class="ip-step-num">3</div>
+            <div class="ip-step-text">ابعتلنا Screenshot التحويل</div>
+          </div>
+        </div>
+
+        <div class="ip-account-card">
+          <div class="ip-label">رقم الحساب / الموبايل</div>
+          <div class="ip-number" id="ipNumber">01XXXXXXXXX</div>
+          <button class="ip-copy-btn" id="copyIpNumber">📋 نسخ الرقم</button>
+        </div>
+
+        <div class="ip-amount-card">
+          <div class="ip-label">المبلغ المطلوب</div>
+          <div class="ip-amount" id="ipAmount">399 جنيه</div>
+        </div>
+
+        <div class="ip-note">
+          ⚡ بعد التحويل، ابعت الـ Screenshot على واتساب أو الإيميل وهنفعّل اشتراكك خلال ساعة
+        </div>
+
+        <button class="btn-primary" id="confirmInstapay" style="width:100%; justify-content:center; margin-top:8px;">
+          ✅ أنا حوّلت — تأكيد
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== E-WALLET SCREEN ========== -->
+  <section id="walletScreen" class="screen">
+    <div class="bg-orbs"><div class="orb orb-2"></div></div>
+    <div class="payment-header">
+      <button class="btn-back" id="backFromWallet">← رجوع</button>
+      <h2 class="payment-title">📱 المحفظة الإلكترونية</h2>
+    </div>
+    <div class="payment-body">
+      <div class="selected-plan-badge" id="walletPlanBadge">399 جنيه / سنة</div>
+
+      <div class="wallet-options-row">
+        <div class="wallet-opt active" data-wallet="vodafone" id="wVodafone">
+          <span class="wallet-emoji">🔴</span>
+          <span>Vodafone Cash</span>
+        </div>
+        <div class="wallet-opt" data-wallet="orange" id="wOrange">
+          <span class="wallet-emoji">🟠</span>
+          <span>Orange Money</span>
+        </div>
+        <div class="wallet-opt" data-wallet="etisalat" id="wEtisalat">
+          <span class="wallet-emoji">🟢</span>
+          <span>Etisalat</span>
+        </div>
+      </div>
+
+      <div class="instapay-box">
+        <div class="instapay-steps">
+          <div class="ip-step">
+            <div class="ip-step-num">1</div>
+            <div class="ip-step-text">افتح تطبيق المحفظة بتاعتك</div>
+          </div>
+          <div class="ip-step">
+            <div class="ip-step-num">2</div>
+            <div class="ip-step-text">اختار "تحويل أموال" للرقم ده</div>
+          </div>
+          <div class="ip-step">
+            <div class="ip-step-num">3</div>
+            <div class="ip-step-text">ابعتلنا Screenshot التحويل</div>
+          </div>
+        </div>
+
+        <div class="ip-account-card">
+          <div class="ip-label">رقم المحفظة</div>
+          <div class="ip-number" id="walletNumber">01XXXXXXXXX</div>
+          <button class="ip-copy-btn" id="copyWalletNumber">📋 نسخ الرقم</button>
+        </div>
+
+        <div class="ip-amount-card">
+          <div class="ip-label">المبلغ المطلوب</div>
+          <div class="ip-amount" id="walletAmount">399 جنيه</div>
+        </div>
+
+        <div class="ip-note">
+          ⚡ بعد التحويل، ابعت الـ Screenshot وهنفعّل اشتراكك خلال ساعة
+        </div>
+
+        <button class="btn-primary" id="confirmWallet" style="width:100%; justify-content:center; margin-top:8px;">
+          ✅ أنا حوّلت — تأكيد
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PAYMENT SUCCESS SCREEN ========== -->
+  <section id="successScreen" class="screen">
+    <div class="bg-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="success-content">
+      <div class="success-animation">
+        <div class="success-ring"></div>
+        <div class="success-ring success-ring-2"></div>
+        <div class="success-icon">👑</div>
+      </div>
+      <h1 class="success-title">مبروك! 🎉</h1>
+      <p class="success-sub">أنت دلوقتي AURA Premium</p>
+      <div class="success-details" id="successDetails">
+        <div class="success-detail-item">
+          <span>✅</span>
+          <span>الاشتراك فعّال</span>
+        </div>
+        <div class="success-detail-item">
+          <span>🔓</span>
+          <span>كل المزايا متاحة ليك</span>
+        </div>
+        <div class="success-detail-item">
+          <span>📧</span>
+          <span>تفاصيل الاشتراك بالإيميل</span>
+        </div>
+      </div>
+      <button class="btn-primary" id="goHomeFromSuccess" style="width:100%; justify-content:center;">
+        🚀 ابدأ استخدام Premium
+      </button>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+  <script src="premium.js"></script>
+</body>
+</html>
